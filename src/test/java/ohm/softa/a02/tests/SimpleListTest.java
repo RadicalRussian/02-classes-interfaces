@@ -65,4 +65,29 @@ public class SimpleListTest {
 			assertTrue(i % 2 == 0);
 		}
 	}
+
+	@Test
+	void testOwnFilter(){
+		SimpleListImpl result = (SimpleListImpl) testList.filter(new SimpleFilter() {
+			@Override
+			public boolean include(Object item) {
+				int current = (int) item;
+				return current%2 == 1;
+			}
+		});
+
+		for(Object o : result){
+			int i = (int) o;
+			assertTrue(i % 2 == 1);
+		}
+	}
+
+	@Test
+	void testOwnLambdaFilter(){
+		SimpleListImpl result = (SimpleListImpl) testList.filter(o -> ((int)o) == 3);
+		for(Object o : result){
+			int i = (int) o;
+			assertEquals(3, i);
+		}
+	}
 }
